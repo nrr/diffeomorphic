@@ -9,8 +9,8 @@ Furthermore, two manifolds are said to be diffeomorphic if there exists a
 diffeomorphism between them.
 
 In the context of this repository, the manifolds represent a playground and a
-well-structured project respectively. I plan to ramble a incoherently a lot
-here, and the results of my rambling may have implications with respect to
-finished projects. I may go backwards and reflect on what is finished.
+well-structured project respectively. I plan to ramble incoherently a lot here,
+and the results of my rambling may have implications with respect to finished
+projects. I may go backwards and reflect on what is finished.
 
 If you are not me, I definitely welcome comments on my math and code.
