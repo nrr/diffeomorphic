@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+is_subshell() {
+    if [ "`basename $1`" = "ctmux" ]
+    then
+        return 0
+    fi
+
+    return -1
+}
+
+error() {
+    echo "$@" >2
+}
+
+cluster_tmux() {
+    local session_name="ctmux-`date -u -Idate`"
+    local modulus=4
+    local ssh_command="$HOME/bin/j"
+
+    while getopts ":s:m:c:" opt
+    do
+        case $opt in
+            s)
+                session_name=$OPTARG
+                ;;
+            m)
+                modulus=$OPTARG
+                ;;
+            c)
+                ssh_command=$OPTARG
+                ;;
+            \?)
+                error "I don't know what you mean: -$OPTARG"
+                ;;
+        esac
+    done
+
+    shift $((OPTIND-1))
+
+    local remote_hosts="$@"
+
+    tmux new-session -d -s $session_name
+
+    local count=0
+    for remote_host in $remote_hosts
+    do
+        local window_command="${ssh_command} ${remote_host}"
+        if [ $((count % modulus)) -eq 0 ]
+        then
+            tmux new-window -t "${session_name}" "${window_command}"
+        else
+            tmux split-window -v -t "${session_name}" "${window_command}"
+            tmux select-layout -t "${session_name}" even-vertical
+        fi
+
+        count=$((count+1))
+    done
+}
+
+is_subshell $0 && cluster_tmux "$@"
