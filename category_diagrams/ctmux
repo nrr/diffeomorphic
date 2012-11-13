@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# example: ctmux -m 4 -c /bin/ssh io{3,s1}host{1..30}
 
 is_subshell() {
     if [ "`basename $1`" = "ctmux" ]
