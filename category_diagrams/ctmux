@@ -2,7 +2,7 @@
 # example: ctmux -m 4 -c /bin/ssh io{3,s1}host{1..30}
 
 is_subshell() {
-    if [ "`basename $1`" = "ctmux" ]
+    if [ "${0##*/}" = ctmux ]
     then
         return 0
     fi
@@ -11,25 +11,26 @@ is_subshell() {
 }
 
 error() {
-    echo "$@" >2
+    echo "$@" >&2
+    exit 1
 }
 
 cluster_tmux() {
-    local session_name="ctmux-`date -u -Idate`"
-    local modulus=4
+    local session_name="ctmux-$(date -uIdate)"
+    local -i modulus=4
     local ssh_command="$HOME/bin/j"
 
     while getopts ":s:m:c:" opt
     do
         case $opt in
             s)
-                session_name=$OPTARG
+                session_name="$OPTARG"
                 ;;
             m)
-                modulus=$OPTARG
+                modulus="$OPTARG"
                 ;;
             c)
-                ssh_command=$OPTARG
+                ssh_command="$OPTARG"
                 ;;
             \?)
                 error "I don't know what you mean: -$OPTARG"
@@ -37,17 +38,17 @@ cluster_tmux() {
         esac
     done
 
-    shift $((OPTIND-1))
+    shift $(( OPTIND-1 ))
 
-    local remote_hosts="$@"
+    local remote_hosts=("$@")
 
-    tmux new-session -d -s $session_name
+    tmux new-session -d -s "$session_name"
 
     local count=0
-    for remote_host in $remote_hosts
+    for remote_host in "${remote_hosts[@]}"
     do
-        local window_command="${ssh_command} ${remote_host}"
-        if [ $((count % modulus)) -eq 0 ]
+        local window_command="${ssh_command} '${remote_host}'"
+        if ((  count % modulus == 0 ))
         then
             tmux new-window -t "${session_name}" "${window_command}"
         else
@@ -55,8 +56,8 @@ cluster_tmux() {
             tmux select-layout -t "${session_name}" even-vertical
         fi
 
-        count=$((count+1))
+        let count+=1
     done
 }
 
-is_subshell $0 && cluster_tmux "$@"
+is_subshell "$0" && cluster_tmux "$@"
