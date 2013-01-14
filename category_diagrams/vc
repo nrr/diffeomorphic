@@ -1,1 +1,32 @@
 #! /usr/bin/env perl
+
+use feature qw[ say ];
+use strictures 1;
+
+sub parse_repository_path
+{
+	my ($repository_path) = @_;
+
+	if ($repository_path =~ /^code.google.com/) {
+	}
+	elsif ($repository_path =~ /^github.com/) {
+	}
+	elsif ($repository_path =~ /^bitbucket.org/) {
+	}
+	elsif ($repository_path =~ /^chiselapp.com/) {
+	}
+	else {
+	}
+}
+
+sub main
+{
+	my ($command) = @_;
+
+	if ($command eq 'get') {
+	}
+	elsif ($command eq 'fork-and-get') {
+	}
+	else {
+	}
+}
