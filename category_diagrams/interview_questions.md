@@ -103,9 +103,9 @@ somewhere (e.g., a virtual machine, a lightweight sandbox, a full
 physical machine) but crashing in a seemingly random place. It dumps
 core.
 
-What is your first instinct? Assume Linux, a recent glibc, a program
-written in C or C++, and that you can move the core dump somewhere
-identical with symbol data, just to make it easy.
+What is your first instinct? Assume Linux on x86_64, a recent glibc, a
+program written in C or C++, and that you can move the core dump
+somewhere identical with symbol data, just to make it easy.
 
 Bonus: What if you didn't have the source code for the task worker?
 
@@ -153,3 +153,15 @@ why? Can you work around that?
 Will it adequately handle a very heterogeneous (say, one workload
 represents maybe a 1% sample of the cluster's running tasks) collection
 of workloads? If not, why? Can you work around that?
+
+- - -
+
+Why might cron be a bad idea for a large distributed system? What is a
+better alternative?
+
+Bonus: How can you make cron work in this instance?
+
+- - -
+
+Explain how memory allocation works on Linux. Assume ext4fs. Assume
+x86_64.
