@@ -19,14 +19,18 @@ In essence, you're hiring reverse engineers for production systems.
 Suppose that you're reviewing code for something, and you come across a
 couple of lines that read a bit like the following:
 
-	free(a);
-	a = NULL;
-	/* ... a few lines here ... */
-	do_some_thing(*a);
+	int *a = NULL;
+	int b = *a;
 
 What will happen? If it weren't immediately apparent to you (because of,
 say, lack of sleep), what steps would your habits dictate you take in
 order to debug it?
+
+Bonus: Why is the following (admittedly contrived example) similarly
+bad?
+
+	int *a = calloc(sizeof int);
+	int b = *a;
 
 - - -
 
