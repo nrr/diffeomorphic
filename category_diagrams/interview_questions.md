@@ -169,3 +169,8 @@ x86_64.
 - - -
 
 What happens when you truncate an `mmap()`ed file on ext4fs? On ZFS?
+
+- - -
+
+If you had to write your own /bin/init, what language(s) would you use
+and why?
