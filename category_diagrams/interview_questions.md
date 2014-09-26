@@ -7,6 +7,14 @@ well. Or, worse, you end up getting 1990's-era systems administrators
 who aren't particularly well-versed in much of anything but the command
 line.
 
+I mean, it's great that you're using something like Chef and that you
+want to hire folks who know Chef, but I wouldn't outright advertise that
+you're looking specifically for that skill. I personally picked up Chef
+over the course of a couple of months on the job; previously, I'd
+written daemontools run scripts and cfengine promises to perform my
+systems automation tasks. I also had minimal Puppet experience writing
+facter plugins.
+
 The general aim with systems engineers, at least in my experience, is
 not to hire specialists. Rather, your best systems engineers are going
 to be the ones who can reason about a system that they have _never_ seen
@@ -32,7 +40,10 @@ bad?
 	int *a = (int)calloc(sizeof int);
 	int b = *a;
 
-Bonus bonus: How can you fix it so that it isn't bad anymore.?
+Bonus bonus: How can you fix it so that it isn't bad anymore?
+
+Bonus bonus bonus: Can you come up with an analogous example in Java?
+Without using JNI?
 
 - - -
 
@@ -120,11 +131,13 @@ list your assumptions about what is being monitored.
 
 How will it hold up to clusters of 100 nodes? 1000? 10,000?
 
-Will it adequately handle multiple clusters of the above sizes?
+Will it adequately handle multiple clusters of the above sizes as if you
+were running in more than one datacenter or geographic region? If not,
+why? Can you work around that?
 
 Will it adequately handle a very heterogeneous (say, one workload
 represents maybe a 1% sample of the cluster's running tasks) collection
-of workloads?
+of workloads? If not, why? Can you work around that?
 
 - - -
 
@@ -133,8 +146,10 @@ your assumptions about what is being configured.
 
 How will it hold up to clusters of 100 nodes? 1000? 10,000?
 
-Will it adequately handle multiple clusters of the above sizes?
+Will it adequately handle multiple clusters of the above sizes as if you
+were running in more than one datacenter or geographic region? If not,
+why? Can you work around that?
 
 Will it adequately handle a very heterogeneous (say, one workload
 represents maybe a 1% sample of the cluster's running tasks) collection
-of workloads?
+of workloads? If not, why? Can you work around that?
