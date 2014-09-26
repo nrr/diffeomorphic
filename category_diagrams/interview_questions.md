@@ -29,7 +29,7 @@ order to debug it?
 Bonus: Why is the following (admittedly contrived example) similarly
 bad?
 
-	int *a = calloc(sizeof int);
+	int *a = (int)calloc(sizeof int);
 	int b = *a;
 
 - - -
@@ -107,3 +107,7 @@ distributed system.
 - - -
 
 Describe how you would build your ideal monitoring system.
+
+How will it hold up to clusters of 100 nodes? 1000? 10,000?
+
+Will it adequately handle multiple clusters of the above sizes?
