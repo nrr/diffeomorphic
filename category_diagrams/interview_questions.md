@@ -165,3 +165,7 @@ Bonus: How can you make cron work in this instance?
 
 Explain how memory allocation works on Linux. Assume ext4fs. Assume
 x86_64.
+
+- - -
+
+What happens when you truncate an `mmap()`ed file on ext4fs? On ZFS?
