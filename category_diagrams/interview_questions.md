@@ -32,6 +32,8 @@ bad?
 	int *a = (int)calloc(sizeof int);
 	int b = *a;
 
+Bonus bonus: How can you fix it so that it isn't bad anymore.?
+
 - - -
 
 Can you write a very simple process supervisor?
@@ -39,6 +41,9 @@ Can you write a very simple process supervisor?
 If not, can you reason about how to write one? Assume that your
 processes always run foregrounded and that they don't call, e.g.,
 `setsid()`.
+
+Bonus: How can you bubble up standard output from the supervised
+process? Why is this useful?
 
 - - -
 
@@ -52,6 +57,10 @@ to using syslog in any capacity?
 
 Explain why it might be bad to ship your logs indiscriminately across
 the network.
+
+Bonus: What are some alternatives?
+
+Bonus bonus: How would log analysis work?
 
 - - -
 
@@ -106,8 +115,26 @@ distributed system.
 
 - - -
 
-Describe how you would build your ideal monitoring system.
+Describe how you would build your ideal monitoring system. Be sure to
+list your assumptions about what is being monitored.
 
 How will it hold up to clusters of 100 nodes? 1000? 10,000?
 
 Will it adequately handle multiple clusters of the above sizes?
+
+Will it adequately handle a very heterogeneous (say, one workload
+represents maybe a 1% sample of the cluster's running tasks) collection
+of workloads?
+
+- - -
+
+Describe your ideal configuration management system. Be sure to list
+your assumptions about what is being configured.
+
+How will it hold up to clusters of 100 nodes? 1000? 10,000?
+
+Will it adequately handle multiple clusters of the above sizes?
+
+Will it adequately handle a very heterogeneous (say, one workload
+represents maybe a 1% sample of the cluster's running tasks) collection
+of workloads?
