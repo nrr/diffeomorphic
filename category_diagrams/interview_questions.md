@@ -13,12 +13,20 @@ you're looking specifically for that skill. I personally picked up Chef
 over the course of a couple of months on the job; previously, I'd
 written daemontools run scripts and cfengine promises to perform my
 systems automation tasks. I also had minimal Puppet experience writing
-facter plugins.
+facter plugins. Anyone worth their salt will generally just pick it up
+unless it's particularly obtuse.
 
 The general aim with systems engineers, at least in my experience, is
 not to hire specialists. Rather, your best systems engineers are going
 to be the ones who can reason about a system that they have _never_ seen
 before and be able to tear it apart to figure out how it works.
+
+A better gauge for measuring this particular quality happens to be
+asking some pointed questions to see how well-read the candidate is. A
+better gauge still is to ask to see some work from this individual. An
+even better gauge still is to take this individual from one of your open
+source projects, where they have been submitting patches to fix bugs or
+implement additional functionality.
 
 In essence, you're hiring reverse engineers for production systems.
 
