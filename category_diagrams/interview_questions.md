@@ -182,3 +182,21 @@ What happens when you truncate an `mmap()`ed file on ext4fs? On ZFS?
 
 If you had to write your own /bin/init, what language(s) would you use
 and why?
+
+- - -
+
+How should you tool your monitoring system to avoid having downtime?
+
+- - -
+
+Explain some possible candidates for consensus algorithms. What are
+their strengths? What are their weaknesses? Make sure to list your
+assumptions for each one.
+
+Bonus: Provide a worst case time analysis for your algorithms.
+
+Bonus bonus: Provide a worst case space analysis for your algorithms.
+
+- - -
+
+What are some serious drawbacks about using Paxos in production systems?
