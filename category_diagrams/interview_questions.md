@@ -35,7 +35,7 @@ In essence, you're hiring reverse engineers for production systems.
 When reviewing the source code for a program, you notice a constant
 being defined:
 
-	const char *SOME_THING = {0xad, 0xea, 0xdc, 0xa7};
+	const char *SOME_THING = {0xad, 0xea, 0xdc, 0xa7, 0};
 
 You later see it being persisted out to disk or sent across the network.
 What may be the significance of this constant?
