@@ -32,6 +32,16 @@ In essence, you're hiring reverse engineers for production systems.
 
 - - -
 
+When reviewing the source code for a program, you notice a constant
+being defined:
+
+	const char *SOME_THING = {0xad, 0xea, 0xdc, 0xa7};
+
+You later see it being persisted out to disk or sent across the network.
+What may be the significance of this constant?
+
+- - -
+
 Suppose that you're reviewing code for something, and you come across a
 couple of lines that read a bit like the following:
 
@@ -113,9 +123,12 @@ core.
 
 What is your first instinct? Assume Linux on x86_64, a recent glibc, a
 program written in C or C++, and that you can move the core dump
-somewhere identical with symbol data, just to make it easy.
+somewhere identical with symbol data, just to make it easy. Also, feel
+free to assume that it is single-threaded to limit the scope a bit.
 
 Bonus: What if you didn't have the source code for the task worker?
+
+Bonus bonus: What if it were multi-threaded?
 
 - - -
 
@@ -200,3 +213,17 @@ Bonus bonus: Provide a worst case space analysis for your algorithms.
 - - -
 
 What are some serious drawbacks about using Paxos in production systems?
+
+- - -
+
+Explore a case study of a production incident involving a distributed
+system. List the assumptions of various parts of the system and note how
+those assumptions were violated.
+
+What could have been done differently to mitigate disaster? If disaster
+did not strike, what ultimately saved the system from disaster?
+
+- - -
+
+How would you implement service discovery for a cluster of 100 nodes?
+1000? 10,000?
