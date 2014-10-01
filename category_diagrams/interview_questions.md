@@ -232,3 +232,16 @@ How would you implement service discovery for a cluster of 100 nodes?
 
 You've lost 200 kB of a 2 GB file due to some error somewhere. What do
 you do?
+
+- - -
+
+Why is "backup system" a bit of a misnomer?
+
+- - -
+
+Suppose you were designing your ideal backup system. What features would
+you implement? What concerns would you address to mitigate disaster?
+
+What architectural features would your backup system have?
+
+What would be your RPO and RTO targets?
