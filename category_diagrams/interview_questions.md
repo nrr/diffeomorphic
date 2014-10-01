@@ -227,3 +227,8 @@ did not strike, what ultimately saved the system from disaster?
 
 How would you implement service discovery for a cluster of 100 nodes?
 1000? 10,000?
+
+- - -
+
+You've lost 200 kB of a 2 GB file due to some error somewhere. What do
+you do?
