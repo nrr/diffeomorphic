@@ -1,0 +1,290 @@
+\documentclass[letterpaper,12pt]{article}
+
+\usepackage[top=1in, bottom=1in, left=0.75in, right=0.75in]{geometry}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage[pdftex,
+            pdfauthor={Nathaniel R. Reindl},
+            pdftitle={CS 312, Spring 2009: Some Notes on Floating
+              Point Arithmetic},
+            pdfsubject={},
+            pdfkeywords={},
+            pdfproducer={},
+            pdfcreator={}]{hyperref}
+
+\setlength{\headheight}{0.25in}
+\pagestyle{fancy}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{ans}[thm]{Answer}
+\newtheorem*{ansa}{Answer}
+\newtheorem*{sola}{Solution}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{que}[thm]{Question}
+\newtheorem*{quea}{Question}
+\newtheorem*{exma}{Example}
+
+\lhead{\textbf{CS 312, Spring 2009}: {\it Some Notes on Floating Point
+    Arithmetic.}}
+\rhead{{\tt nrr@corvidae.org}}
+\rfoot{Page \thepage{} of \pageref{LastPage}} \cfoot{}
+
+\title{Some Notes on Floating Point}
+\author{Nathaniel R. Reindl}
+\date{\today}
+
+\begin{document}
+
+\section{Introduction}
+
+Blah, blah, say some words to introduce the topic, maybe provide an
+example, whatever.  On second thought, let's just dive head-first into
+things and see where the current takes us.
+
+\section{Normalized Real Numbers in Decimal}
+
+Before we hit the meat of the topic too terribly hard, let's briefly
+review scientific notation, significant places, and the process for
+normalizing real numbers in the base that we're familiar with: base
+10.  Additionally, we say real number to mean any number $x$ in
+$\mathbb{R}$, the set of real numbers.
+
+Scientific notation is a way of representing a real number that would
+otherwise be cumbersome to be written conventionally.  We've all seen
+this several thousand times already, so I'll save a lot of the detail
+except for the form of the representation and what it means for a real
+number to be normalized.
+
+That said, a normalized real number $x$ in scientific notation has the
+form
+\begin{equation}
+  x = a \cdot 10^b,
+\end{equation}
+where $1\leq \left | a \right | < 10$.  We call the coefficient $a$
+one of either the {\it significand}, {\it mantissa}, or {\it fraction}
+and $b$ the {\it characteristic} or {\it exponent}.  In 312, we used
+the terms {\it fraction} and {\it exponent}.
+
+The process of normalization itself is braindead simple to the point
+that we can probably do it in our sleep.  Informally, we just shift
+the decimal place as appropriate to ensure $1\leq \left | a \right | <
+10$ and keep count of how many places we shift it.  The count of
+places is, hence, $b$.
+
+\section{Normalized Real Numbers in Some Base $\beta$}
+
+Now that we've hit the material with which we're all familiar, we can
+finally abstract the select few parts so that we can glean more
+insight as to how this mess works as a whole.
+
+Really, the changes to the definition we discussed earlier are
+minimal.  A normalized real number $x$ in a base $\beta$ in
+floating-point notation has the form
+\begin{equation}
+  x_\beta= a \cdot \beta^b,
+\end{equation}
+where $1\leq \left | a \right | < \beta$.  The same vocabulary
+applies, and so on.  The process of normalization is even the same.
+
+\section{Normalized Real Numbers in IEEE 754 Format}
+
+It may seem like we're beating this normalization bit pretty heavily,
+but we intend to say a few different words in this section compared to
+the others.  Namely, we intend to introduce the mathematical
+representation and some of the associated analysis formulas for a real
+number represented using IEEE 754, and we intend to explain some of
+the features of this format.  For specific examples and calculations,
+we assume that we're dealing with double-precision floating-point
+numbers.
+
+Having said that, a real number $x$ in IEEE 754 floating-point format
+(C/C++ {\tt float} or {\tt double}) has the form
+\begin{equation}
+  \label{ieee754_form}
+  x=(-1)^s \cdot 2^{c-b}\cdot (1+m),
+\end{equation}
+where $s$ ($l_s=1$ bit) is an integer that represents the sign of $x$,
+$c$ ($l_c=11$ bits) is the exponent obtained by normalizing $x$,
+$b=1023$ is the bias used to determine signedness of the exponent
+given $c$, and $m$ ($l_m=52$ bits) is the fraction obtained by
+normalizing $x$.
+
+\begin{quea}
+  Why do we multiply $(1 + m)$ by $2^{c-b}$ and not just $m$?
+\end{quea}
+\begin{ansa}
+  Since we're dealing with a binary representation of our number, we
+  consider $\beta = 2$.  This means then that, since $1\leq \left | a
+  \right | < \beta$, we always have $\left | a \right | = 1$.  Hence,
+  our number $x_2$ in normalized form will always be
+  \begin{equation*}
+    x_2=1.m^{(1)}m^{(2)}\ldots m^{(l_m)}\cdot 2^b,
+  \end{equation*}
+  where each $m^{(i)}$ represents an individual bit.  The biggest
+  consequence of this happens to be the fact that we don't store the
+  extra bit of precision.  In essence, we get 53 bits of precision for
+  the price of 52.
+\end{ansa}
+
+We computed the bias $b=1023$ by noting that the length of the
+bitfield for our exponent is $l_c=11$ bits and then performing
+\begin{equation}
+  b = \left \lfloor \dfrac{2^{l_c}-1}{2} \right \rfloor 
+  = \left \lfloor \dfrac{2^{11}-1}{2} \right \rfloor
+  = \left \lfloor \dfrac{2047}{2} \right \rfloor
+  = 1023.
+\end{equation}
+From here, we can compute $e_{\mathrm{min}}$ by
+\begin{equation}
+  \label{e_min}
+  e_{\mathrm{min}} = b - 2^{l_c} - 2 = -1022
+\end{equation}
+and $e_{\mathrm{max}}$ by
+\begin{equation}
+  \label{e_max}
+  e_{\mathrm{max}} = 2^{l_c} - b - 2 = 1023.
+\end{equation}
+\begin{quea}
+  OK, wait.  Why isn't it the case that $e_{\mathrm{min}}=-1023$ and
+  $e_{\mathrm{max}}=1024$?  Why are~\eqref{e_min} and~\eqref{e_max}
+  both off by one?
+\end{quea}
+\begin{ansa}
+  The IEEE 754 floating-point representation uses $e_{\mathrm{min}}-1$
+  and $e_{\mathrm{max}}+1$ as special values to encode non-numeric
+  results like NaNs, $\pm\infty$, and denormalized numbers.  We'll
+  discuss the specifics of these later.
+\end{ansa}
+Going further, we can compute the minimum positive fraction
+$m_{\mathrm{min}}$ by
+\begin{equation}
+  m_{\mathrm{min}}=1\cdot 2^{-l_m}=1\cdot
+  2^{-52}=\dfrac{1}{4\,503\,599\,627\,370\,496}
+\end{equation}
+and the maximum positive fraction $m_{\mathrm{max}}$ by
+\begin{equation}
+  m_{\mathrm{max}}=\sum_{i=1}^{l_m}1\cdot=\sum_{i=1}^{52}1\cdot
+  2^{-i}=\dfrac{4\,503\,599\,627\,370\,495}{4\,503\,599\,627\,370\,496}
+\end{equation}
+Now that we have $e_{\mathrm{min}}$, $e_{\mathrm{max}}$,
+$m_{\mathrm{min}}$, $m_{\mathrm{max}}$, we can find the values for
+$x_{\mathrm{min}}$ and $x_{\mathrm{max}}$.
+
+To do this, we refer back to~\eqref{ieee754_form} and plug in values
+as appropriate.  For $x_{\mathrm{min}}$, we let $s=0$,
+$c-b=e_{\mathrm{min}}$ and $m=m_{\mathrm{min}}$.  We obtain then
+\begin{align}
+  x_{\mathrm{min}} &= (-1)^0\cdot 2^{e_{\mathrm{min}}}\cdot (1 + m_{\mathrm{min}})\\
+  &= (-1)^0\cdot 2^{-1022}\cdot (1 + \dfrac{1}{4\,503\,599\,627\,370\,496})\\
+  &= 2.22507\cdot 10^{-308}.
+\end{align}
+Similarly, for $x_{\mathrm{max}}$, we let $s=0$,
+$c-b=e_{\mathrm{max}}$, and $m=m_{\mathrm{max}}$.  Hence,
+\begin{align}
+  x_{\mathrm{max}} &=(-1)^0\cdot 2^{e_{\mathrm{max}}}\cdot (1 + m_{\mathrm{max}})\\
+  &= (-1)^0\cdot 2^{1023}\cdot (1+
+  \dfrac{4\,503\,599\,627\,370\,495}{4\,503\,599\,627\,370\,496})\\
+  &= 1.79769\cdot 10^{308}.
+\end{align}
+
+Since we've hinted to it already in this writing, we should probably
+enumerate the special cases of the representation sooner or later.
+Doing it now doesn't sound like a bad idea.
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{|c|c|c|}
+      \hline
+      $c-b$ & $m$ & Object Represented\\
+      \hline
+      \hline
+      0 & 0 & zeroes\\
+      0 & nonzero & denormalized numbers\\
+      1 to $e_{\mathrm{max}}$ & anything & normalized numbers\\
+      $e_{\mathrm{max}}+1$ & 0 & infinities\\
+      $e_{\mathrm{max}}+1$ & nonzero & NaNs\\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{IEEE 754 encoding of floating-point numbers.}
+  \label{special_cases}
+\end{table}
+The only problem with Table~\ref{special_cases} is that we haven't yet
+covered what a denormalized number is.
+
+\begin{quea}
+  What is a denormalized number?
+\end{quea}
+\begin{ansa}
+  A denormalized number is a number in the world that is
+  floating-point math that fills in the gap between zero and the
+  smallest (largest) positive (negative) number.  These are only
+  important to consider from a numerical analysis standpoint because
+  they have interesting implications when involved in arithmetic
+  operations, namely division by zero and $a-b=0$ for $a\not =b$.
+\end{ansa}
+
+\section{More Floating-Point Numbers}
+
+So, what more is there?  For starters, we can talk about arithmetic
+operations like addition, subtraction, and so on and their pitfalls
+but we'll probably leave this for last or near to last.
+
+There's also the possibility for discussing conversions between
+decimal representations and IEEE 754 representations, which we'll most
+likely discuss next.  Furthermore, we can even get into some of the
+interesting analytic topics like the spacing of IEEE 754 values on a
+number line or error analysis or ordering or the like, but it's
+unlikely that we'll get too far with this because of the mathematical
+background of the participants in 312 and because of the fact that
+this is not a numerical analysis course.
+
+Still, there's the topic of rounding, but that also tends to involve
+numerical analysis.
+
+\subsection{Converting from Decimal to IEEE 754}
+
+The conversion from decimal to IEEE 754 isn't exactly the most
+straightforward at first, but the process pretty much goes like the
+following.  Assume that we have a real number $x$ in decimal.
+\begin{enumerate}
+\item Convert $x$ to binary.
+\item Normalize the binary representation of $x$.
+\item Let $e$ be the amount of binary places shifted in the
+  normalization process.  Set $c-b=e$ in~\eqref{ieee754_form}.
+\item Assemble the pieces.
+\item ???
+\item PROFIT!
+\end{enumerate}
+There are exercises in the text that cover this, but just for the sake
+of being at least halfway complete here, let's work out an example.
+\begin{exma}
+  Convert $\pi\approx 3.14159$ to IEEE 754 double-precision format.
+\end{exma}
+\begin{sola}
+  First, we convert $3.14159$ to binary, which yields
+  \begin{equation*}
+    \pi_2\approx 11.001001000011111101_2.
+  \end{equation*}
+  We normalize $\pi_2$, which gets us
+  \begin{equation*}
+    \pi_2\approx 1.1001001000011111101_2\cdot 10_2^{1}.
+  \end{equation*}
+  This means that $e=1$.  We can now start assembling the pieces.  We
+  have
+  \begin{equation*}
+    \pi_2\approx (-1)^0\cdot 2^{1}\cdot (1+2^{-1}+2^{-4}+2^{-7}+2^{-12}+\cdots+2^{-17}+2^{-19}).
+  \end{equation*}
+  This is our IEEE 754 double-precision representation for an
+  approximation of $\pi$ to six significant digits.
+\end{sola}
+
+\end{document}
