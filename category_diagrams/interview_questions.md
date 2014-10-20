@@ -30,6 +30,14 @@ implement additional functionality.
 
 In essence, you're hiring reverse engineers for production systems.
 
+Now, that all said, failing to answer these questions will not make you
+immediately fail an interview with me. In fact, if you're a motorcycle
+mechanic for a racing team, for example, and you've demonstrated to me
+that you understand systems thinking with all sorts of motorcycle
+maintenance and tuning allegory, and you use Linux as a hobbyist,
+there's a great chance that I may take the risk on you. That, and the
+perspective diversity gains would be truly wonderful.
+
 - - -
 
 When reviewing the source code for a program, you notice a constant
