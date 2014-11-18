@@ -36,8 +36,8 @@ A good example is JIRA, which does have a bit of a tendency to run into
 the weeds with fatal OOMEs that don't actually kill the JVM but will
 effectively halt all threads.
 
-That sucks, and logging in every time it happens to give JIRA a kick
-also sucks. How can we make it better?
+That sucks, and logging in every time it happens to give JIRA a kick to
+the pants also sucks. How can we make it better?
 
 Well, for starters, run JIRA under daemontools, and use multilog to
 capture the application container's output on standard out to a
