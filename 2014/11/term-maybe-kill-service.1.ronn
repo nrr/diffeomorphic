@@ -1,0 +1,23 @@
+term-maybe-kill-service(1) -- TERM and possibly KILL a daemontools service
+==========================================================================
+
+## SYNOPSIS
+
+`term-maybe-kill-service` [-w TIMEOUT] [-s SERVICE_PATH]
+
+## DESCRIPTION
+
+## OPTIONS
+
+## EXIT STATUS
+
+## EXAMPLES
+
+## BUGS
+
+## COPYRIGHT
+
+**term-maybe-kill-service** is copyright (c) 2014 Nathaniel Reindl
+<nrr@corvidae.org>.
+
+Portions are copyright (c) 2005 Contegix, LLC.

@@ -1,0 +1,75 @@
+#! /usr/bin/env bash
+
+#############################################################################
+# Copyright (c) 2005 by Contegix LLC
+# Copyright (c) 2014 Nathaniel Reindl <nrr@corvidae.org>
+# All rights reserved.
+#
+# Read term-maybe-kill-service(1) for the details.
+#############################################################################
+
+set -u
+set -e
+set -o pipefail
+
+# Location of daemontools binaries
+svc=/usr/local/bin/svc
+svstat=/usr/local/bin/svstat
+
+check () {
+    for (( i=0 ; i<$3 ; i++ )) ; do
+        svstat_val=`$svstat $1`
+        echo $svstat_val
+        if [[ $svstat_val == $2 ]]; then
+            break
+        fi
+        sleep 1
+    done    
+}
+
+# How long to wait for service to stop gracefully before killing
+default_wait_time=10
+service=$1
+down_pattern="*:\ down\ *"
+up_pattern="*:\ up\ *"
+
+if [[ $# -eq 2 ]]; then
+    wait_time=$2
+else
+    wait_time=$default_wait_time
+fi
+
+# Check for the right arguments
+if [[ ! -d $service ]]; then
+    echo "Usage: $0 service-directory [wait-time (defaults to 10 seconds)]"
+    exit 1
+fi
+
+svstat_val=`$svstat $service`
+if [[ $svstat_val == $up_pattern ]]; then
+    # Send a QUIT signal to the process to generate a Java thread dump
+    echo "Sending QUIT signal to generate a Java thread dump..."
+    pid=`$svstat $service | awk '{print $4}' | tr -d [:punct:]`
+    kill -3 $pid
+
+    # Take service down
+    echo "Taking the service down..."
+    $svc -d $service
+    check $service "$down_pattern" $wait_time
+fi
+
+
+# If service is still running after 10 seconds, kill it
+svstat_val=`$svstat $service`
+if [[ $svstat_val != $down_pattern ]]; then
+    echo "Killing the service..."
+    $svc -k $service
+    check $service "$down_pattern" $default_wait_time
+fi
+
+# Bring service back up
+echo "Bringing the service back up..."
+$svc -u $service
+check $service "$up_pattern" $default_wait_time
+
+exit 0
