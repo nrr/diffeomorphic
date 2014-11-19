@@ -109,11 +109,11 @@ the way for tremendous inroads when it comes to discoverability and
 slashes down your ramp-up time for new hackers to dive in and make
 meaningful contributions.
 
-That said, I think Subversion's strategy for working copies is abysmally
-bad. I do much prefer to wrap it in `git-svn` and swap patches with my
+That said, I think `svn`'s strategy for working copies is abysmally bad.
+I do much prefer to wrap it in `git-svn` and swap patches with my
 colleagues in the typical Git way.
 
-_So, hold up,_ you're probably thinking to yourself. _These seem
+_So, hold up,_ you're probably thinking to yourself. _These seem to be
 somewhat diametrically opposed things. You like Subversion for some
 things, but then you rail on `svn` for being terrible. There's gotta be
 a catch._
