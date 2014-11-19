@@ -102,6 +102,11 @@ stable, supported by a lot of environments and tools, well-known by
 software developers and operators alike, and reasonably flexible in what
 you can do with it.
 
+(Also, as an aside, I use "Subversion" to refer to the conceptual
+version control product as a whole, `svn` to refer to the Subversion
+client, and "the source of truth" to refer to the Subversion server
+somewhat nebulously. Let's clarify that before anyone gets confused.)
+
 One of my favorite features of Subversion is being able to check out a
 subset of a repository as a local working copy. That's tremendously
 powerful, and if you organize your repository well enough, that paves
@@ -110,8 +115,8 @@ slashes down your ramp-up time for new hackers to dive in and make
 meaningful contributions.
 
 That said, I think `svn`'s strategy for working copies is abysmally bad.
-I do much prefer to wrap it in `git-svn` and swap patches with my
-colleagues in the typical Git way.
+I do much prefer to wrap Subversion in `git-svn` and swap patches with
+my colleagues in the typical Git way.
 
 _So, hold up,_ you're probably thinking to yourself. _These seem to be
 somewhat diametrically opposed things. You like Subversion for some
