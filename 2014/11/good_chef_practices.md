@@ -142,8 +142,9 @@ encumbered in a whole lot of ceremony, folks will gravitate toward
 submitting CLs instead of resorting to the tactics of the wild west.
 
 Nevertheless, the point is that everyone is aware of what goes into the
-source of truth. Everyone has access to the CL for every "repository" in
-the organization, and it all shares the same parent root.
+source of truth. Everyone has full access to every CL for every
+"repository" in the organization, and it all shares the same parent
+root.
 
 Also, don't worry about an overload of change information. That's what
 grep is for. Seriously.
