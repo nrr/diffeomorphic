@@ -130,9 +130,20 @@ Ideally, you'd leave commit access open to everyone and adopt a model of
 forgiveness later." This is implemented at one shop as a post-commit
 audit hook and is used for public shaming, which I find quite agreeable.
 
+From a psychological perspective, the positive praise garnered from good
+CLs far, far outpaces the negative attention garnered from cowboy
+commits to HEAD, which means, assuming that submitting CLs is not
+encumbered in a whole lot of ceremony, folks will gravitate toward
+submitting CLs instead of resorting to the tactics of the wild west.
+
 Nevertheless, the point is that everyone is aware of what goes into the
 source of truth. Everyone has access to the CL for every "repository" in
 the organization, and it all shares the same parent root.
 
 Also, don't worry about an overload of change information. That's what
 grep is for. Seriously.
+
+# Code reviews obviate a need for traditional ITSM change control tools
+
+This might be obvious to some but not to others.
+TODO: Write more on this.
