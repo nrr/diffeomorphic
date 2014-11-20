@@ -37,36 +37,38 @@ everyone along to a path of prosperity.
 Nevertheless, I particularly like the flexibility that Chef provides,
 and it is quite a nice tool for implementing systems automation. The
 only failing is that it is a vast and expansive framework within which
-to work, very much like C++. You needn't use every feature; instead, you
-need to consider very strongly which features are useful without wearing
-out the utility of others.
+to work, very much like C++'s Standard Template Library. You needn't use
+every feature; instead, you need to consider very strongly which
+features are useful without wearing out the utility of others.
 
 # Setting up a Chef workstation
 
-Use ChefDK for this. Seriously. There's no reason not to, and it's an
-out-of-the-box supported toolchain from Chef themselves.
+Just use ChefDK for this. Don't even consider anything else. There's no
+reason not to use it, and it's an out-of-the-box supported toolchain
+from Chef themselves.
 
-In talking to other folks, I've heard some gripes that Chef seems a bit
-opinionated in that you need to have `/opt/chefdk/bin` at the front of
-your `$PATH`, but I've largely found those invalid.
+While talking to other folks, I've heard some gripes that Chef seems a
+bit opinionated in that you need to have `/opt/chefdk/bin` at the front
+of your `$PATH`, but I've largely found those invalid.
 
 See, back in the CVS days, I would often jump between various
-`$CVSROOT`s, and I found it somewhat cumbersome to keep having to keep
-`export`ing that variable each time I would switch. Instead, I wrote a
-script vaguely like the following and named it `$HOME/bin/with-local-cvs`:
+`$CVSROOT`s, and I found it somewhat cumbersome to keep `export`ing that
+variable each time I would switch. Instead, I wrote a script vaguely
+like the following and named it `$HOME/bin/with-local-cvs`:
 
 	#! /bin/sh
 	exec env CVSROOT=/cvs "$@"
 
-From there, I could do things like `with-local-cvs cvs up`. Very easy,
-very elegant, and the best part was that I could use `bash`
-TAB-completion to expand words at point for those various little
+From there, I could do things like `with-local-cvs cvs up`. That's very
+easy and very elegant. However, the best part was that I could use
+`bash` TAB-completion to expand words at point for those various little
 commands.
 
-Similarly, for ChefDK, I use a script called `chefdkify` to set this up.
-This allows me to use all of my rbenv-installed Rubies for everything
-but ChefDK but to use ChefDK for Chef tasks when I need to. It's a net
-win for everybody.
+Similarly, for ChefDK, I use a script called `chefdkify` to set this up,
+which is available in the same directory as this wordy thing you're
+reading right now. This allows me to use all of my rbenv-installed
+Rubies for everything but Chef-related tasks but to use ChefDK for Chef
+tasks when I need to. It's a net win for everybody.
 
 The only bad thing is that commands are now `chefdkify knife ...`
 instead of simply `knife ...`, but with TAB-completion, that's a
@@ -74,19 +76,23 @@ non-issue.
 
 # A strategy for chef-server
 
-Chef-server is great, but it's likely just best used as a means for
-coordinating cookbook updates. I haven't found much utility in
+I think chef-server is great, but it's likely just best used as a means
+for coordinating cookbook updates. I haven't found much utility in
 persisting meaningful `node` objects to it, and I haven't found much
 of an advantage in doing cross-`node` `search`es. For smaller
 infrastructures, it might work, but I would highly advise investing time
 in implementing a proper inventory management system or service
-management console.
+management console. You'll thank yourself for it later.
 
-Here's the beautiful part. You can inform your `chef-client`'s
+Now, here's the beautiful part. You can inform your `chef-client`'s
 `run_list` from these systems and keep that data out of chef-server, and
 even better, you can write small Ohai plugins with a minimal amount of
 fuss that will interrogate those systems as required to replace this
 functionality.
+
+(If you've ever used Microsoft Azure, you'll note that they actually
+sort of do this when you provision Linux VMs and opt to install the
+Azure agent on them.)
 
 This means, then, at least in conjunction with another couple of things
 that I'll talk about in a moment, that your chef-server infrastructure
@@ -108,7 +114,7 @@ You also need to make sure your version control infrastructure is solid,
 robust, and fault tolerant, at least from a business continuity
 perspective. Your VCS already has these properties though, right?
 
-# A strategy on version control
+# Opinions on version control
 
 Frankly, I'm a big fan of using Subversion as the source of truth. It's
 stable, supported by a lot of environments and tools, well-known by
@@ -159,14 +165,55 @@ source of truth. Everyone has full access to every CL for every
 "repository" in the organization, and it all shares the same parent
 root.
 
+Another overarching theme here is that HEAD _is_ production. Full stop.
+_Whoa, wait,_ you think to yourself, _What about testing changes that
+need to land in production?_ I implore you to have patience; we'll get
+there soon enough.
+
 Also, don't worry about an overload of change information. That's what
 grep is for. Seriously.
 
 # ITSM change control tools are now gone (kinda)
 
-This might be obvious to some but not to others.
-TODO: Write more on this.
+I say that they're kinda gone mainly because there's still some degree
+of risk management required in the non-software aspects of
+infrastructure operations, namely anything that happens in the data
+center. That's likely still going to require the involvement of a change
+advisory board or some other organ to review what's going on and when.
+
+However, not all is lost; you can carve a part out of your big, giant
+Subversion repository there to hold all of the myriad documentation for
+each scheduled procedure that you intend to run, submit those as CLs to
+land in HEAD, and get approvals amongst your immediate teammates as
+needed on them before you commit to running them or handing everything
+up to the aforementioned CAB.
+
+That's just cool as hell. Forgive me for being excited about it.
+
+Now, the other parts past that, depending on who you are and what your
+background is, may or may not be obvious. The short story really is that
+software-oriented infrastructure changes aren't much different from the
+CL workflow I just described.
+
+The only real difference is that development teams and operations teams
+work together, in the same space, as their own giant CAB. This time,
+however, the CAB is _implicit_. It isn't a formalized institution of
+individuals wearing purple robes to whom you must plead your case that a
+change must be made; instead, the folks who referee your changes are
+your peers. Since they're in the trenches with you, they're less likely
+to miss important details or, frankly, less likely to shrug you off when
+you need help testing something before it lands in HEAD.
 
 # OK, but what about testing and integration?
 
-TODO: Write more on this.
+This one's easy: Use chef-zero. Stand up a whole new ephemeral Chef
+server with the contents of your working copy as you want to test it.
+Then, find an unsuspecting node somewhere (or provision a new one), and
+instruct it to talk to your chef-zero instance.
+
+# How does actual cookbook development work?
+
+TODO: Go over lack of versions in `metadata.rb`. 
+
+TODO: Illustrate how working the shadows could integrate well with
+working fully illuminated, to use allegory developed earlier.
