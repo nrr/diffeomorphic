@@ -3,19 +3,32 @@
 In case you're wondering why I chose the word "good" instead of "best,"
 just consider that "best" implies that your opinions are the only ones
 worth listening to, and that every other opinion is somehow some notion
-of "wrong." I disagree with that mentality.
+of "wrong." I disagree quite strongly with that mentality.
 
-In fact, read the title of this document as "good Chef ideas." The point
-is to illustrate a workflow, strategy, and code style that tends to work
-for large, heterogeneous, disparate environments. The hope is that the
+In fact, read the title of this document as "good Chef ideas," or
+perhaps, you could read it as "starter Chef opinions." The point is to
+illustrate a workflow, strategy, and code style that tends to work for
+large, heterogeneous, disparate environments. The hope is that the
 content contained herein is useful for all environments; however, I will
 cheerfully acknowledge that not one size fits all. That right there is,
 after all, a core tenet of the Fundamental Systems Truths.
 
-There will be a part of this document that addresses part of the wetware
-concerns, namely how to adopt a change-embracing instead of a
-change-averse culture. I intend to bust a number of the myths that
-operations cannot work with some degree of agility in larger
+I also chose the base form of the adjective "good" instead of the
+comparative "better" to imply that this could very well be a baseline
+set of practices that anyone could adopt to start. One of the difficult
+parts of Chef is that, as a product, it isn't quite opinionated enough,
+and unless you invest a _lot_ of time in keeping up with the community,
+looking at what everyone is doing, asking questions, the framework will
+inundate you up to your eyeballs in directions to take. This definitely
+does show Chef's roots as a Perl app written using Catalyst. While we do
+have much to owe to Chef's flexibility and the pragmatism of Adam Jacob,
+it helps to have some well-informed opinions out of the box to help
+newcomers adopt the technology.
+
+That all said, there will also be a part of this document that addresses
+part of the wetware concerns, namely how to adopt a change-embracing
+instead of a change-averse culture. I intend to bust a number of the
+myths that operations cannot work with some degree of agility in larger
 environments, at least not when it comes to making it work well. The
 only real impediment is having executives suspend belief for a moment
 while their good engineers do what they're good at and help lead
@@ -149,7 +162,11 @@ root.
 Also, don't worry about an overload of change information. That's what
 grep is for. Seriously.
 
-# Code reviews obviate a need for traditional ITSM change control tools
+# ITSM change control tools are now gone (kinda)
 
 This might be obvious to some but not to others.
+TODO: Write more on this.
+
+# OK, but what about testing and integration?
+
 TODO: Write more on this.
