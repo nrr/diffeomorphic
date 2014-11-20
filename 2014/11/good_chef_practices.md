@@ -124,14 +124,7 @@ you can do with it.
 (Also, as an aside, I use "Subversion" to refer to the conceptual
 version control product as a whole, `svn` to refer to the Subversion
 client, and "the source of truth" to refer to the Subversion server
-somewhat nebulously. Let's clarify that before anyone gets confused.
-
-Let's also clarify that, if you're only concerned about implementing a
-VCS for operations, use whatever you like. Git suffices perfectly fine
-for that. My assumption is that you want to lump everything in together,
-in one place, for both development and operations, just to drive the
-whole agile operations point home. Subversion allows everyone to invoke
-a divide-and-conquer strategy to get work done.)
+somewhat nebulously. Let's clarify that before anyone gets confused.)
 
 One of my favorite features of Subversion is being able to check out a
 subset of a repository as a local working copy. That's tremendously
@@ -139,6 +132,21 @@ powerful, and if you organize your repository well enough, that paves
 the way for tremendous inroads when it comes to discoverability and
 slashes down your ramp-up time for new hackers to dive in and make
 meaningful contributions.
+
+It also simplifies automating things like configuring build plans for
+individual projects since, at this point, you're just walking your
+repository tree.  Contrast that to, e.g., GitHub where you'd have to
+write some tools to talk to an API and then make more HTTP requests (or
+potentially clone things) to snag whatever data you require to configure
+your build plans. Gross.
+
+(Let's also clarify that, if you're only concerned about implementing a
+VCS for operations, use whatever you like. Git suffices perfectly fine
+for that. My assumption is that you want to lump everything in together,
+in one place, for both development and operations, just to drive the
+whole agile operations point home. Subversion allows everyone to invoke
+a divide-and-conquer strategy at the individual level in order to get
+work done.)
 
 That said, I think `svn`'s strategy for working copies is abysmally bad.
 I do much prefer to wrap Subversion in `git-svn` and swap patches with
@@ -238,3 +246,7 @@ TODO: Go over lack of versions in `metadata.rb`.
 
 TODO: Illustrate how working the shadows could integrate well with
 working fully illuminated, to use allegory developed earlier.
+
+# Deploying application code
+
+TODO: Talk about Omnibus.
