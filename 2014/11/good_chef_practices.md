@@ -124,7 +124,14 @@ you can do with it.
 (Also, as an aside, I use "Subversion" to refer to the conceptual
 version control product as a whole, `svn` to refer to the Subversion
 client, and "the source of truth" to refer to the Subversion server
-somewhat nebulously. Let's clarify that before anyone gets confused.)
+somewhat nebulously. Let's clarify that before anyone gets confused.
+
+Let's also clarify that, if you're only concerned about implementing a
+VCS for operations, use whatever you like. Git suffices perfectly fine
+for that. My assumption is that you want to lump everything in together,
+in one place, for both development and operations, just to drive the
+whole agile operations point home. Subversion allows everyone to invoke
+a divide-and-conquer strategy to get work done.)
 
 One of my favorite features of Subversion is being able to check out a
 subset of a repository as a local working copy. That's tremendously
@@ -208,8 +215,22 @@ you need help testing something before it lands in HEAD.
 
 This one's easy: Use chef-zero. Stand up a whole new ephemeral Chef
 server with the contents of your working copy as you want to test it.
-Then, find an unsuspecting node somewhere (or provision a new one), and
+Then, find an unsuspecting node somewhere--or provision a new one--and
 instruct it to talk to your chef-zero instance.
+
+Recall my remarks about `git-svn` earlier. If you're working in the
+shadows, it makes perfectly good sense to create a topic branch for all
+of this work and to wall yourself off for a little while. That's the
+whole point of the bringover-modify-merge model of source management.
+
+The magic happens, though, when you take your topic branch and upload
+its contents to that chef-zero instance. You now have a development Chef
+server, just for you and your changes, that will now allow you to have
+an edit-compile-run cycle. In addition, since it's running in your
+production infrastructure, it is afforded access to production
+facilities.
+
+How cool is that?
 
 # How does actual cookbook development work?
 
