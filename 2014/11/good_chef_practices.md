@@ -104,11 +104,12 @@ infrastructure management.
 That's serious risk mitigation. That's business continuity. That's
 robustness.
 
-Now, that doesn't come without some caveats though. For that to work
+Now, that does come without some caveats though. For that to work
 well, you do need to monkey-patch `chef-client` such that it doesn't
 send up a ton of `node` object data whenever `node.save` is called.
-Thankfully, the `whitelist-node-attrs` cookbook from the Chef
-supermarket is already there to do this for you.
+Thankfully, the 
+[whitelist-node-attrs](https://supermarket.getchef.com/cookbooks/whitelist-node-attrs) 
+cookbook from the Chef supermarket is already there to do this for you.
 
 You also need to make sure your version control infrastructure is solid,
 robust, and fault tolerant, at least from a business continuity
