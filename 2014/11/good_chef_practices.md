@@ -10,8 +10,8 @@ perhaps, you could read it as "starter Chef opinions." The point is to
 illustrate a workflow, strategy, and code style that tends to work for
 large, heterogeneous, disparate environments. The hope is that the
 content contained herein is useful for all environments; however, I will
-cheerfully acknowledge that not one size fits all. That right there is,
-after all, a core tenet of the Fundamental Systems Truths.
+cheerfully acknowledge that one size doest not fit all. That is, after 
+all, a core tenet of the Fundamental Systems Truths.
 
 I also chose the base form of the adjective "good" instead of the
 comparative "better" to imply that this could very well be a baseline
