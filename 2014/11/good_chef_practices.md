@@ -1,5 +1,8 @@
 # Good Chef practices
 
+TODO: Split this out into a series of articles. I don't feel I can
+adequately limit the scope to fit one piece.
+
 In case you're wondering why I chose the word "good" instead of "best,"
 just consider that "best" implies that your opinions are the only ones
 worth listening to, and that every other opinion is somehow some notion
@@ -115,6 +118,8 @@ robust, and fault tolerant, at least from a business continuity
 perspective. Your VCS already has these properties though, right?
 
 # Opinions on version control
+
+TODO: Why not `git subtree` or `git submodule`?
 
 Frankly, I'm a big fan of using Subversion as the source of truth. It's
 stable, supported by a lot of environments and tools, well-known by
