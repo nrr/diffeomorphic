@@ -260,6 +260,8 @@ There's a core dump on one of your servers' disks from a program that
 was compiled with `-O2` and without `-g`. What do you do? (Crying may be
 your first instinct, which is why I didn't ask that here.)
 
+What if it really were compiled with `-g`? What changes?
+
 Suppose that you don't have the binary anymore. What's your first
 instinct? (See what I did there?)
 
