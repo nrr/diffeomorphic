@@ -253,3 +253,38 @@ you implement? What concerns would you address to mitigate disaster?
 What architectural features would your backup system have?
 
 What would be your RPO and RTO targets?
+
+- - -
+
+There's a core dump on one of your servers' disks from a program that
+was compiled with `-O2` and without `-g`. What do you do? (Crying may be
+your first instinct, which is why I didn't ask that here.)
+
+Suppose that you don't have the binary anymore. What's your first
+instinct? (See what I did there?)
+
+- - -
+
+There's a lot of furor about Docker and containerization in the industry
+at the moment. Describe in a few words what problems you believe Docker
+solves.
+
+Suppose now that you're Google circa 2004-07, and you have a pressing
+business need to run several hundred applications from myriad internal
+development teams across clusters of myriad nodes. Without considering
+the coordination problem, what tools would you use on each node? (You
+have Linux, coreutils, glibc, Xen paravirtualization, etc.)
+
+Given your solution above, what would happen if there existed a workload
+that is largely block I/O-heavy alongside a workload that is CPU-heavy?
+What would happen in the case of CPU-heavy workloads running alongside
+other CPU-heavy workloads? I/O-heavy workloads alongside other I/O-heavy
+workloads?
+
+Would an application from team A be able to see the files of the
+deployment from team B? How would you mitigate that?
+
+Would you be able to guarantee that an application deployment on, say,
+Tuesday would be identical to another one performed (with the same
+parameters, etc.) the following Thursday? What tools would you use to
+guarantee such a thing?
