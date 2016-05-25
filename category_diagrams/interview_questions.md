@@ -50,6 +50,41 @@ What may be the significance of this constant?
 
 - - -
 
+Which signals (assume Linux 2.6+) are not maskable? 
+
+- - -
+
+Describe some good patterns for handling signals in a multi-threaded
+program.
+
+Bonus: Consider some signal handling anti-patterns and explore when and
+why they break down in this case.
+
+- - -
+
+When computing the load average, which two process states (assume Linux
+2.6+) does the kernel count toward it?
+
+Bonus: Explain the significance of the load average.
+
+Bonus bonus: Explore why relying on a machine's load average to gauge
+its health is often not a wise idea.
+
+- - -
+
+What steps in the bootup sequence does `kexec()` skip?
+
+- - -
+
+Describe the general procedure for building and installing the Linux
+kernel.
+
+Bonus: Explain how to upgrade a running kernel without fully rebooting.
+
+Bonus bonus: Why is the kernel image itself compressed?
+
+- - -
+
 Suppose that you're reviewing code for something, and you come across a
 couple of lines that read a bit like the following:
 
@@ -133,6 +168,9 @@ What is your first instinct? Assume Linux on x86_64, a recent glibc, a
 program written in C or C++, and that you can move the core dump
 somewhere identical with symbol data, just to make it easy. Also, feel
 free to assume that it is single-threaded to limit the scope a bit.
+
+First: If it's continuing to dump core in an inconvenient place, how do
+you go about telling the OS to dump core somewhere else?
 
 Bonus: What if you didn't have the source code for the task worker?
 
