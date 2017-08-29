@@ -16,6 +16,11 @@ systems automation tasks. I also had minimal Puppet experience writing
 facter plugins. Anyone worth their salt will generally just pick it up
 unless it's particularly obtuse.
 
+In fact, I'd argue that, if you're harping too much on a particular skill
+because you have a pressing business need that has suddenly brought that skill
+into relevance for you, it's likely too little too late to hire someone as a
+full-time equivalent to fill that role.
+
 The general aim with systems engineers, at least in my experience, is
 not to hire specialists. Rather, your best systems engineers are going
 to be the ones who can reason about a system that they have _never_ seen
@@ -244,6 +249,12 @@ and why?
 
 - - -
 
+Explain some design differences between Solaris' SMF and systemd.
+
+Bonus: Explain the pros and cons of SMF and systemd.
+
+- - -
+
 How should you tool your monitoring system to avoid having downtime?
 
 - - -
@@ -312,7 +323,7 @@ solves.
 Suppose now that you're Google circa 2004-07, and you have a pressing
 business need to run several hundred applications from myriad internal
 development teams across clusters of myriad nodes. Without considering
-the coordination problem, what tools would you use on each node? (You
+the cluster coordination problem, what tools would you use on each node? (You
 have Linux, coreutils, glibc, Xen paravirtualization, etc.)
 
 Given your solution above, what would happen if there existed a workload
